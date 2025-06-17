@@ -38,7 +38,7 @@ float getFrequency(){
 noteInfo convertToNote(float frequency){
     noteInfo note;
     if(frequency<=20 || frequency >= 5000){
-        note.noteName = "";
+        note.noteName = "error";
         note.octave = -1;
         note.deviationCents = 0;
         note.midiNote = -1;

@@ -12,3 +12,4 @@ void initDisplay() {
     tft.setTextSize(2); // Set text size
     tft.setCursor(0, 0); // Set cursor position to top left corner
 }
+
