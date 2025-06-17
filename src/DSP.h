@@ -10,7 +10,7 @@
 struct noteInfo{
     String noteName; //simple note letter eg. "C", "D#", "F"
     int octave; // octave number, 0-8
-    float deviation; // deviation from the note in Hz
+    int deviationCents; // deviation in cents, -50 to 50
     int midiNote; // MIDI note number, 0-127
 };
 
