@@ -35,3 +35,30 @@ float getFrequency(){
     return frequency; //return the frequency
 }
 
+noteInfo convertToNote(float frequency){
+    noteInfo note;
+    if(frequency<=20 || frequency >= 5000){
+        note.noteName = "";
+        note.octave = -1;
+        note.deviationCents = 0;
+        note.midiNote = -1;
+        return note; //return empty note if frequency is invalid
+    }
+    //calculate MIDI number
+    int midiNote = round(69 + 12 * log2(frequency / 440.0));
+    note.midiNote = midiNote;
+
+    //note name array
+    const char* noteNames[] = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
+
+    //calculating octave and note name
+    note.octave = (midiNote / 12) - 1; //-1 because octave starts at 0
+    note.noteName = noteNames[midiNote % 12]; //get the note name
+
+    //calculate deviation
+    float notefreq =  440.0 * pow(2.0, (midiNote - 69) / 12.0); //calculate the frequency of the note
+    note.deviationCents = round(1200*log2(frequency / notefreq)); //calculate the deviation in cents
+    if(note.deviationCents < -50) note.deviationCents = -50;
+    else if(note.deviationCents > 50) note.deviationCents = 50; //limit the deviation to -50 to 50 cents
+    return note; //return the note info
+}
