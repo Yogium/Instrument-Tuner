@@ -6,6 +6,7 @@ A project that uses an ESP32 as well as a microphone to create a tuning device f
  - ADC_Input 34
  
  **Output (LCD) Pins:** 
+- TFT_MISO 19
 - TFT_MOSI 23
 - TFT_SCLK 18
 - TFT_CS   15  
