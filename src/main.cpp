@@ -10,4 +10,6 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  testDisplay(); // Call the function to test the display
+  delay(2000); // Wait for 2 seconds before the next test
 }
