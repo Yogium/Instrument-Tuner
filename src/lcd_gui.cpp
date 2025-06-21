@@ -38,19 +38,35 @@ void displayNote(noteInfo note){
     String noteString = note.noteName + String(note.octave);
     tft.printf("Note: %s", noteString.c_str()); // Print the note and octave
 
-    //drawing initial UI
-    tft.fillRect(45, 266, 54, 30, TFT_RED); //draw -50 red rectangle
-    tft.fillRect(82, 241, 79, 29, TFT_RED); //draw -40  red rectangle
-    tft.fillRect(117, 216, 103, 29, TFT_ORANGE); //draw -30 orange rectangle
-    tft.fillRect(153, 194, 126, 29, TFT_ORANGE); //draw -20 orange rectangle
-    tft.fillRect(189, 166, 154, 30, TFT_ORANGE); //draw -10 yellow rectangle
-    tft.fillRect(225, 152, 168, 29, TFT_GREEN); //draw green rectangle
-    tft.fillRect(260, 166, 154, 30, TFT_ORANGE); //draw +10 orange rectangle
-    tft.fillRect(297, 194, 126, 29, TFT_ORANGE); //draw +20 orange rectangle
-    tft.fillRect(333, 216, 104, 29, TFT_ORANGE); //draw +30 orange rectangle
-    tft.fillRect(369, 241, 79, 29, TFT_RED); //draw +40 red rectangle
-    tft.fillRect(404, 266, 54, 30, TFT_RED); //draw +50 red rectangle
+    //creating if note is empty
+    if(note.noteName == "-"){
+       for(int i=0; i<11; i++){
+            tft.fillRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h, TFT_BLACK); // Clear the rectangles
+        }
+        tft.fillRect(152, 75, 173, 38, TFT_WHITE);
+    }
 
-    //deviation in cents
-    
+    //if there is note information
+    else{
+        //draw initial display
+        for(int i=0; i<11; i++){
+            tft.fillRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h, rects[i].color);
+        }
+        //write the note
+        tft.setCursor(173, 51);
+        tft.setTextSize(2);
+        tft.setTextColor(TFT_WHITE, TFT_BLACK);
+        //creating note+octave string
+        String noteStr = note.noteName + String(note.octave);
+        tft.printf("Note: %s", noteStr.c_str()); // Print the note and octave
+        //changing rectangle color based on deviation
+        //clamping deviation to -50 to 50
+        int deviation = note.deviationCents;
+        if(deviation < -50) deviation = -50;
+        else if(deviation > 50) deviation = 50;
+        //calculating which rectangle to change
+        int rectIndex = (deviation + 50) / 10; // -50 to +50 maps to 0 to 10
+        //change rectangle color
+        tft.fillRect(rects[rectIndex].x, rects[rectIndex].y, rects[rectIndex].w, rects[rectIndex].h, TFT_WHITE); // Change the rectangle color to white
+    }           
 }
