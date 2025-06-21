@@ -12,22 +12,23 @@ struct Rect{
 
 //array of rectangles for the deviation in cents
 const Rect rects[11] = {
-    {45, 266, 54, 30, TFT_RED},   // -50
-    {82, 241, 79, 29, TFT_RED},   // -40
-    {117, 216, 103, 29, TFT_ORANGE}, // -30
-    {153, 194, 126, 29, TFT_ORANGE}, // -20
-    {189, 166, 154, 30, TFT_ORANGE}, // -10
-    {225, 152, 168, 29, TFT_GREEN}, // +0
-    {260, 166, 154, 30, TFT_ORANGE}, // +10
-    {297, 194, 126, 29, TFT_ORANGE}, // +20
-    {333, 216, 104, 29, TFT_ORANGE}, // +30
-    {369, 241, 79, 29, TFT_RED},   // +40
-    {404, 266, 54, 30, TFT_RED}    // +50
+    {45, 266, 30, 54, TFT_RED},   // -50
+    {82, 241, 29, 79, TFT_RED},   // -40
+    {117, 216, 29, 103, TFT_ORANGE}, // -30
+    {153, 194, 29, 126, TFT_ORANGE}, // -20
+    {189, 166, 30, 154, TFT_ORANGE}, // -10
+    {225, 152, 29, 168, TFT_GREEN}, // +0
+    {260, 166, 30, 154, TFT_ORANGE}, // +10
+    {297, 194, 29, 126, TFT_ORANGE}, // +20
+    {333, 216, 29, 104, TFT_ORANGE}, // +30
+    {369, 241, 29, 79, TFT_RED},   // +40
+    {404, 266, 30, 54, TFT_RED}    // +50
 };
 
 //function to initialize the TFT display
 void initDisplay();
 void testDisplay();
 void displayNote(noteInfo note);
+void cleanDisplay();
 
 #endif // LCD_GUI_H

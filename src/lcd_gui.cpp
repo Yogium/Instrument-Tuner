@@ -43,7 +43,11 @@ void displayNote(noteInfo note){
        for(int i=0; i<11; i++){
             tft.fillRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h, TFT_BLACK); // Clear the rectangles
         }
-        tft.fillRect(152, 75, 173, 38, TFT_WHITE);
+        tft.setCursor(173, 51);
+        tft.setTextSize(3);
+        tft.setTextColor(TFT_WHITE, TFT_BLACK);
+        tft.printf("Note: %s", "-"); // Print empty note
+        
     }
 
     //if there is note information
@@ -52,13 +56,25 @@ void displayNote(noteInfo note){
         for(int i=0; i<11; i++){
             tft.fillRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h, rects[i].color);
         }
+
+        if(note.deviationCents == 0){
+            tft.setTextColor(TFT_GREEN, TFT_BLACK); // Set text color to green for zero deviation
+        }
+        else{
+            tft.setTextColor(TFT_WHITE, TFT_BLACK); // Set text color to white for non-zero deviation
+        }
         //write the note
         tft.setCursor(173, 51);
-        tft.setTextSize(2);
-        tft.setTextColor(TFT_WHITE, TFT_BLACK);
+        tft.setTextSize(3);
         //creating note+octave string
         String noteStr = note.noteName + String(note.octave);
         tft.printf("Note: %s", noteStr.c_str()); // Print the note and octave
+
+        //printing deviation in hertz
+        tft.setCursor(70, 90);
+        tft.setTextSize(3);
+        tft.printf("Deviation: %.2f Hz", note.deviation); // Print the deviation in hertz
+
         //changing rectangle color based on deviation
         //clamping deviation to -50 to 50
         int deviation = note.deviationCents;
@@ -69,4 +85,11 @@ void displayNote(noteInfo note){
         //change rectangle color
         tft.fillRect(rects[rectIndex].x, rects[rectIndex].y, rects[rectIndex].w, rects[rectIndex].h, TFT_WHITE); // Change the rectangle color to white
     }           
+}
+
+void cleanDisplay(){
+    tft.fillScreen(TFT_BLACK); // Clear the screen
+    tft.setCursor(0, 0); // Reset cursor position to top left corner
+    tft.setTextColor(TFT_WHITE, TFT_BLACK); // Reset text color to white with black background
+    tft.setTextSize(2); // Reset text size
 }

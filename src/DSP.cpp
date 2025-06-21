@@ -40,6 +40,7 @@ noteInfo convertToNote(float frequency){
     if(frequency<=20 || frequency >= 5000){
         note.noteName = "-";
         note.octave = -1;
+        note.deviation = 0; //set deviation to 0 if frequency is invalid
         note.deviationCents = 0;
         note.midiNote = -1;
         return note; //return empty note if frequency is invalid
@@ -57,6 +58,7 @@ noteInfo convertToNote(float frequency){
 
     //calculate deviation
     float notefreq =  440.0 * pow(2.0, (midiNote - 69) / 12.0); //calculate the frequency of the note
+    note.deviation = frequency - notefreq;
     note.deviationCents = round(1200*log2(frequency / notefreq)); //calculate the deviation in cents
     if(note.deviationCents < -50) note.deviationCents = -50;
     else if(note.deviationCents > 50) note.deviationCents = 50; //limit the deviation to -50 to 50 cents
