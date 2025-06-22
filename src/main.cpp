@@ -14,7 +14,7 @@
 #include "DSP.h"
 #include "lcd_gui.h"
 
-// Array of example notes for testing
+// // Array of example notes for testing
 noteInfo exampleNotes[7] = {
     // Perfect Middle C
     {
@@ -83,18 +83,31 @@ noteInfo exampleNotes[7] = {
 // Number of example notes in the array
 const int NUM_EXAMPLE_NOTES = 7;
 
+# define BIAS_PIN 35 //pin for biasing analog circuit
+
 void setup(void) {
-  initDisplay();
- 
+    initDisplay(); // Initialize the display
+    setupFrequencyDetector(); // Initialize the frequency detector
+    pinMode(BIAS_PIN, OUTPUT); // Set the bias pin as output
+    digitalWrite(BIAS_PIN, HIGH); // Set the bias pin to HIGH 
 }
 
 void loop() {
-  for(int i = 0; i < 7; i++) {
-    noteInfo note = exampleNotes[i];
+    float freq = getFrequency(); // Get the frequency from the ADC
+    noteInfo note = convertToNote(freq); // Convert the frequency to a note
+
+    //display note to LCD
     displayNote(note);
-    delay(2000); // Wait for 2 seconds before displaying the next note
-    cleanDisplay();
-  }
+    delay(1000); // Wait for 1 second before the next reading
+    cleanDisplay(); // Clear the display for the next note
+
+    
+    //display examples for testing LCD
+    // for (int i = 0; i < NUM_EXAMPLE_NOTES; i++) {
+    //     displayNote(exampleNotes[i]);
+    //     delay(2000); // Wait for 2 seconds before displaying the next note
+    //     cleanDisplay(); // Clear the display before the next note
+    // }
 }
 
 
