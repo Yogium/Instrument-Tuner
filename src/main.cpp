@@ -83,17 +83,24 @@ noteInfo exampleNotes[7] = {
 // Number of example notes in the array
 const int NUM_EXAMPLE_NOTES = 7;
 
-# define BIAS_PIN 35 //pin for biasing analog circuit
+//# define BIAS_PIN 35 //pin for biasing analog circuit
 
 void setup(void) {
     initDisplay(); // Initialize the display
+    pinMode(34, INPUT); // Set pin 34 as input for ADC
+    analogSetPinAttenuation(32, ADC_11db);
     setupFrequencyDetector(); // Initialize the frequency detector
-    pinMode(BIAS_PIN, OUTPUT); // Set the bias pin as output
-    digitalWrite(BIAS_PIN, HIGH); // Set the bias pin to HIGH 
+    //pinMode(BIAS_PIN, OUTPUT); // Set the bias pin as output
+    //digitalWrite(BIAS_PIN, HIGH); // Set the bias pin to HIGH 
+    // Serial.begin(115200); // Start serial communication for debugging
 }
 
 void loop() {
     float freq = getFrequency(); // Get the frequency from the ADC
+    // int rawVolt = analogRead(34); // Read the raw voltage from the ADC
+    // float volt = (rawVolt / 4095.0) * 3.3; // Convert the raw value to voltage (assuming 12-bit ADC and 3.3V reference)
+    // Serial.printf("Raw ADC Value: %d, Voltage: %.2f V\n", rawVolt, volt); // Print the raw ADC value and voltage to the serial monitor for debugging
+    // Serial.printf("Frequency: %.2f Hz\n", freq); // Print the frequency to the serial monitor for debugging
     noteInfo note = convertToNote(freq); // Convert the frequency to a note
 
     //display note to LCD

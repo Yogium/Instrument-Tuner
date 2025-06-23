@@ -8,7 +8,7 @@ unsigned int samplingPeriod; //in us
 unsigned long microseconds;
 
 
-const int ADC_PIN = 34; //esp32 ADC1 pin
+const int ADC_PIN = 32; //esp32 ADC1 pin
 
 void setupFrequencyDetector() {
     samplingPeriod = round(1000000 * (1.0 / SAMPLING_FREQUENCY)); //in us
